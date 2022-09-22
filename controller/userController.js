@@ -26,7 +26,7 @@ module.exports = {
     User.findOne({ _id: req.params.userid })
       .then((user) =>
         !user
-          ? res.status(404).json({ message: 'No User with that ID' })
+          ? res.status(404).json({ message: 'User ID not recognised' })
           : res.json(user)
       )
       .catch((err) => res.staus(500).json(err));
@@ -42,7 +42,7 @@ module.exports = {
     User.findOneAndDelete({ id: req.params.userid })
       .then((user) =>
         !user
-          ? res.status(404).json({ message: 'User id not recognised' })
+          ? res.status(404).json({ message: 'User ID not recognised' })
           : Thought.findOneAndUpdate(
               { users: req.params.userId },
               { $pull: { users: req.params.userId } },
@@ -69,7 +69,7 @@ module.exports = {
       { new: true }
     ).then((user) =>
       !user
-        ? res.status(404).json({ message: 'User id not recognised' })
+        ? res.status(404).json({ message: 'User ID not recognised' })
         : res.json(user)
     );
   },
