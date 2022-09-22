@@ -53,8 +53,8 @@ module.exports = {
         !thought
           ? res
               .status(404)
-              .json({ message: 'Student deleted, but no course found' })
-          : res.json({ message: 'student successfully deleted' })
+              .json({ message: 'User deleted, but no thought found' })
+          : res.json({ message: 'User successfully deleted' })
       )
       .catch((err) => {
         console.log(err);
@@ -63,9 +63,34 @@ module.exports = {
   },
 
   updateUser(req, res) {
-    User.findOneAndUpdate();
+    User.findOneAndUpdate(
+      { _id: req.params.userId },
+      { $set: req.body },
+      { new: true }
+    ).then((user) =>
+      !user
+        ? res.status(404).json({ message: 'User id not recognised' })
+        : res.json(user)
+    );
   },
 
-  addFriend(req, res) {},
-  deleteFriend(req, res) {},
+  addFriend(req, res) {
+    User.findOneAndUpdate(
+      { _id: req.params.userId },
+      { $addToSet: { friends: req.params.friendId } },
+      { new: true }
+    ).then((userData) => {
+      res.json(userData);
+    });
+  },
+
+  deleteFriend(req, res) {
+    User.findOneAndUpdate(
+      { _id: req.params.userId },
+      { $pull: { friends: req.params.friendId } },
+      { new: true }
+    ).then((friendData) => {
+      res.json(friendData);
+    });
+  },
 };
