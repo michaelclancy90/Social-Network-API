@@ -4,7 +4,7 @@ const {
   deleteReaction,
 } = require('../../controller/reactionController');
 
-router.route('./:thoughtId/reactions').post(addReaction);
-router.route('./:thoughtId/reactions/:reactionId').delete(deleteReaction);
+router.route('/:thoughtId').post(addReaction);
+router.route('/:thoughtId/:reactionId').delete(deleteReaction);
 
 module.exports = router;

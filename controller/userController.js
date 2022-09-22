@@ -23,7 +23,7 @@ module.exports = {
   },
 
   getSingleUser(req, res) {
-    User.findOne({ _id: req.params.userid })
+    User.findOne({ _id: req.params.userId })
       .then((user) =>
         !user
           ? res.status(404).json({ message: 'User ID not recognised' })
@@ -39,7 +39,7 @@ module.exports = {
   },
 
   deleteUser(req, res) {
-    User.findOneAndDelete({ id: req.params.userid })
+    User.findOneAndDelete({ _id: req.params.userId })
       .then((user) =>
         !user
           ? res.status(404).json({ message: 'User ID not recognised' })

@@ -11,14 +11,14 @@ module.exports = {
       });
   },
 
-  getSingleThoughts(req, res) {
-    Thought.findOne({ _id: req.params.userid })
+  getSingleThought(req, res) {
+    Thought.findOne({ _id: req.params.thoughtId })
       .then((thought) =>
         !thought
           ? res.status(404).json({ message: 'Thought ID not recognised' })
-          : res.json(user)
+          : res.json(thought)
       )
-      .catch((err) => res.staus(500).json(err));
+      .catch((err) => res.status(500).json(err));
   },
 
   createNewThought(req, res) {
@@ -29,11 +29,11 @@ module.exports = {
 
   updateThought(req, res) {
     Thought.findOneAndUpdate(
-      { _id: req.params.userId },
+      { _id: req.params.thoughtId },
       { $set: req.body },
       { new: true }
     ).then((thought) =>
-      !user
+      !thought
         ? res.status(404).json({ message: 'Thought ID not recognised' })
         : res.json(thought)
     );
