@@ -1,31 +1,43 @@
-const { Schema, Types } = require('mongoose');
-const reactionSchema = new Schema(
+const { Schema, model } = require('mongoose');
+
+const userSchema = new Schema(
   {
-    reactionID: {
-      type: Schema.Types.ObjectId,
-      default: () => new Types.ObjectId(),
-    },
-    reactionBody: {
-      type: String,
-      required: true,
-      maxlength: 280,
-    },
     username: {
       type: String,
+      unique: true,
       required: true,
+      trimmed: true,
     },
-    createdAt: {
-      type: Date,
-      default: Date.now(),
+    email: {
+      type: String,
+      required: true,
+      unique: true,
     },
+    thoughts: [
+      {
+        type: Schema.Types.ObjectId,
+        ref: 'Thought',
+      },
+    ],
+    friends: [
+      {
+        type: Schema.Types.ObjectId,
+        ref: 'User',
+      },
+    ],
   },
   {
-    timestamps: true,
     toJSON: {
       getters: true,
+      virtuals: true,
     },
-    id: false,
   }
 );
 
-module.exports = reactionSchema;
+userSchema.virtual('friendCount').get(function () {
+  return this.friends.length;
+});
+
+const User = model('user', userSchema);
+
+module.exports = User;
