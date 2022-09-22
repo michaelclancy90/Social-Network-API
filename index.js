@@ -1,5 +1,4 @@
 const express = require('express');
-const { appendFile } = require('fs');
 const db = require('./config/connection');
 const routes = require('./routes');
 const PORT = prcess.env.PORT || 3001;
