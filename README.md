@@ -36,7 +36,13 @@ THEN I am able to successfully create and delete reactions to thoughts and add a
 
  <br />
 
+## **Video Tutorial**
+
+<br />
+
 [MP4 Video Run-Through](https://drive.google.com/file/d/10MpzrD_g0DmNKYZRvDd6JC81Bz3tH2nx/view)
+
+<br />
 
 ## **References**
 
